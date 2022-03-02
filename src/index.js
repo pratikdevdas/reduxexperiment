@@ -1,17 +1,50 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { createStore } from "redux";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const noteReducer = (state = [] , action) => {
+  switch (action.type) {
+    case "INCREMENT":
+      return state + 1;
+    case "DECREMENT":
+      return state - 1;
+    case "ZERO":
+      return (state = 0);
+    default:
+      return state;
+  }
+};
+
+const store = createStore(counterReducer);
+
+const App = () => {
+
+  const handleIncrement = (e) => {
+    store.dispatch({ type: "INCREMENT" });
+  };
+
+  return (
+    <>
+      <button onClick={handleIncrement}>increase</button>
+      {store.getState()}
+    </>
+  );
+};
+  store.subscribe(
+    ()=> {
+      console.log(store.getState())
+      ReactDOM.render(<App></App>,document.getElementById('root'))
+    }
+  )
+
+ReactDOM.render(<App/>,document.getElementById('root'))
+// const renderApp = () =>{ReactDOM.render(
+//     <App />,
+//   document.getElementById('root')
+// );}
+
+// renderApp()
+// store.subscribe(renderApp)
