@@ -1,50 +1,43 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
+import App from './App';
+import { createStore} from "redux";
+import { Provider } from 'react-redux';
+import noteReducer from './reducer/noteReducer';
 
-import { createStore } from "redux";
+ const store = createStore(noteReducer);
 
-const noteReducer = (state = [] , action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return state + 1;
-    case "DECREMENT":
-      return state - 1;
-    case "ZERO":
-      return (state = 0);
-    default:
-      return state;
+ 
+ store.dispatch({
+
+  type:'NEW_NOTE',
+  data:{
+    content:'the app state is in redux',
+    important:true,
+    id:1
   }
-};
+}
+  )
+  
+store.dispatch({
 
-const store = createStore(counterReducer);
-
-const App = () => {
-
-  const handleIncrement = (e) => {
-    store.dispatch({ type: "INCREMENT" });
-  };
-
-  return (
-    <>
-      <button onClick={handleIncrement}>increase</button>
-      {store.getState()}
-    </>
-  );
-};
-  store.subscribe(
-    ()=> {
-      console.log(store.getState())
-      ReactDOM.render(<App></App>,document.getElementById('root'))
-    }
+  type:'NEW_NOTE',
+  data:{
+    content:'state changes are made with actions',
+    important:true,
+    id:2
+  }
+}
   )
 
-ReactDOM.render(<App/>,document.getElementById('root'))
-// const renderApp = () =>{ReactDOM.render(
-//     <App />,
-//   document.getElementById('root')
-// );}
 
-// renderApp()
-// store.subscribe(renderApp)
+const renderApp = () =>{ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+    ,
+  document.getElementById('root')
+);}
+
+renderApp()
+store.subscribe(renderApp)
