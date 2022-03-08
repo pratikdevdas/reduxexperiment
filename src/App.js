@@ -6,12 +6,6 @@ import { filterChange } from "./reducer/filterReducer";
 const App = () => {
  const dispatch = useDispatch()
   
-  const filteredSelected = (value) => {
-    console.log(value)
-  } 
-
-  
-
   return (
     <>
     <div>
