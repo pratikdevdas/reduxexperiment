@@ -1,43 +1,32 @@
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { createStore} from "redux";
+import { createStore,combineReducers} from "redux";
 import { Provider } from 'react-redux';
 import noteReducer from './reducer/noteReducer';
+import filterReducer from './reducer/filterReducer';
+import { createNote } from './reducer/noteReducer';
+import { filterChange } from './reducer/filterReducer';
 
- const store = createStore(noteReducer);
+const reducer = combineReducers({
+  notes: noteReducer,
+  filter:filterReducer
+})
+ const store = createStore(reducer);
 
- 
- store.dispatch({
+ console.log(store.getState());
+ store.subscribe(() => console.log(store.getState()))
+store.dispatch(filterChange('IMPORTANT'))
+store.dispatch(createNote('combineReducers forms one reducer from many simple reducers'))
 
-  type:'NEW_NOTE',
-  data:{
-    content:'the app state is in redux',
-    important:true,
-    id:1
-  }
-}
-  )
-  
-store.dispatch({
-
-  type:'NEW_NOTE',
-  data:{
-    content:'state changes are made with actions',
-    important:true,
-    id:2
-  }
-}
-  )
-
-
-const renderApp = () =>{ReactDOM.render(
+ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>
-    ,
+  </Provider> 
+  ,
   document.getElementById('root')
-);}
+);
 
-renderApp()
-store.subscribe(renderApp)
+
+// renderApp()
+// store.subscribe(renderApp)

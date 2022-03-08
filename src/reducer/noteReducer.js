@@ -1,4 +1,17 @@
-const noteReducer = (state = [] , action) => {
+const initialState = [
+    {
+        content:'state changes are made with actions',
+        important:true,
+        id:1
+      },
+      {
+        content:'state of store can contain any data',
+        important:true,
+        id:2
+      }
+]
+
+const noteReducer = (state = initialState , action) => {
     
     switch(action.type){
         case 'NEW_NOTE':

@@ -1,20 +1,23 @@
 import Notes from "./components/Notes";
 import NewNote from "./components/NewNote";
-const App = () => {
+import { useDispatch } from "react-redux";
+import { filterChange } from "./reducer/filterReducer";
 
+const App = () => {
+ const dispatch = useDispatch()
   
   const filteredSelected = (value) => {
     console.log(value)
-  }
+  } 
 
   
 
   return (
     <>
     <div>
-      <input type="radio" name="filter" onChange={()=> filteredSelected('ALL')} /> All
-      <input type="radio" name="filter" onChange={()=> filteredSelected('IMPORTANT')} /> Imp
-      <input type="radio" name="filter" onChange={()=> filteredSelected('NONIMPORTANT')} /> not imp
+      <input type="radio" name="filter" onChange={()=> dispatch(filterChange('ALL'))} /> All
+      <input type="radio" name="filter" onChange={()=> dispatch(filterChange('IMPORTANT'))} /> Imp
+      <input type="radio" name="filter" onChange={()=> dispatch(filterChange('NONIMPORTANT'))} /> not imp
     </div>
 
     <NewNote></NewNote> 
