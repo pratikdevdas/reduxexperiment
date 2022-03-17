@@ -1,10 +1,18 @@
+import { useEffect } from "react";
 import Notes from "./components/Notes";
 import NewNote from "./components/NewNote";
 import { useDispatch } from "react-redux";
 import { filterChange } from "./reducer/filterReducer";
+import noteService from './services/notes'
+import { setNotes } from "./reducer/noteReducer";
 
 const App = () => {
  const dispatch = useDispatch()
+ 
+ useEffect(() => {
+   noteService.getAll().then(notes => dispatch(setNotes(notes)))
+ }, [dispatch])
+ 
   
   return (
     <>
