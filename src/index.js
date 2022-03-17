@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import filterReducer from './reducer/filterReducer';
 import { configureStore } from '@reduxjs/toolkit';
 import noteService from './services/notes'                    
-import noteReducer,{ appendNote } from './reducer/noteReducer';
+import noteReducer,{ setNotes } from './reducer/noteReducer';
   
 const store = configureStore({
   reducer: {
@@ -14,9 +14,8 @@ const store = configureStore({
   }
 })
 
-noteService.getAll().then(notes => notes.forEach(note => {
-    store.dispatch(appendNote(note))
-})
+noteService.getAll().then(notes => 
+    store.dispatch(setNotes(notes))
 )
 
 ReactDOM.render(
