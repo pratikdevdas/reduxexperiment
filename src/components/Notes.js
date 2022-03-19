@@ -1,20 +1,12 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
-const Notes = () => {
-  const notes = useSelector(state => {
-    if ( state.filter === 'ALL' ) {
-      return state.notes
-    }
-    return state.filter  === 'IMPORTANT' 
-      ? state.notes.filter(note => note.important)
-      : state.notes.filter(note => !note.important)
-  })
+const Notes = (props) => {
 
   return (
     <div>
              <ul>
-       {notes.map(note=> <li key={note.id} > 
+       {props.notes.map(note=> <li key={note.id} > 
                 {note.content}<strong>{note.important ? 'important' : ''}</strong>
        </li>)}
      </ul>
@@ -23,4 +15,24 @@ const Notes = () => {
   )
 }
 
-export default Notes
+
+const mapStateToProps = (state) => {
+  // using props inplace of state due to mapToStateProps
+  // map to state function is used to define props of connected component that are based on state of redux store
+
+  if ( state.filter === 'ALL' ) {
+    return {
+      notes: state.notes
+    }
+  }
+  return{
+
+    notes: (state.filter  === 'IMPORTANT' 
+    ? state.notes.filter(note => note.important)
+    : state.notes.filter(note => !note.important)
+    )
+  } 
+}
+ 
+const ConnectedNotes = connect(mapStateToProps)(Notes)
+export default ConnectedNotes
