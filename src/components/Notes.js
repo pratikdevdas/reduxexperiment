@@ -15,7 +15,6 @@ const Notes = (props) => {
   )
 }
 
-
 const mapStateToProps = (state) => {
   // using props inplace of state due to mapToStateProps
   // map to state function is used to define props of connected component that are based on state of redux store
