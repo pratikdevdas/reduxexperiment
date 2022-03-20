@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import { createNote } from "../reducer/noteReducer";
 
 const NewNote = (props) => {
+  console.log(createNote);
+  console.log(props.createNote);
 
     const addNote = async(event) => {
       event.preventDefault()  
